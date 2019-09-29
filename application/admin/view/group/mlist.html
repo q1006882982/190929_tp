@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>group_list</title>
+    <link rel="stylesheet" href="/static/admin/css/common.css">
+    <script src="/static/admin/js/jquery-2.0.3.min.js"></script>
+
+    <script src="/static/admin/js/base.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="head_do"><a href="{:url('admin/group/form')}">add</a></div>
+    <table class="mtable">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>time</th>
+            <th>do</th>
+        </tr>
+        {foreach $all_data as $data}
+        <tr>
+            <td>{$data.id}</td>
+            <td>{$data.name}</td>
+            <td>{$data.create_time}</td>
+            <td>
+                <a href="{:url('admin/group/form')}?id={$data.id}">edit</a>
+                <a href="{:url('admin/group/del')}?id={$data.id}">del</a>
+            </td>
+        </tr>
+        {/foreach}
+    </table>
+</div>
+
+
+</body>
+</html>

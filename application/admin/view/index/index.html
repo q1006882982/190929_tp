@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" href="/static/admin/css/common.css">
+    <script src="/static/admin/js/jquery-2.0.3.min.js"></script>
+    <script src="/static/admin/js/base.js"></script>
+    <style>
+        .sidebar>ul{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="menu">
+        <ul class="url_menu">
+            {foreach $all_menu as $menu}
+            <li><a href="javascript:void(0)">{$menu.name}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+
+    <div class="sidebar">
+        {foreach $all_menu as $menu}
+        <ul>
+            {foreach $menu.child as $sidebar}
+            <li>{$sidebar.name}</li>
+            <div>
+                {foreach $sidebar.sidebar as $s}
+                <p><a href="">{$s.cname}{$s.id}</a></p>
+                {/foreach}
+            </div>
+            {/foreach}
+        </ul>
+        {/foreach}
+    </div>
+    <div class="main"></div>
+    <div class="footer"></div>
+</div>
+
+
+<script>
+    var $menu_li = $('.url_menu>li');
+    var $sidebar_url = $('.sidebar ul');
+    $sidebar_url.eq(0).show();
+
+    //点击menu切换sidebar
+    $menu_li.each(function (index, ele) {
+        var $that = $(ele);
+        $that.on('click',function () {
+            $sidebar_url.hide();
+            $sidebar_url.eq(index).show();
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

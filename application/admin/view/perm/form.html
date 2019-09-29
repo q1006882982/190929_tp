@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <!--<link rel="stylesheet" href="/static/admin/css/common.css">-->
+    <script src="/static/admin/js/jquery-2.0.3.min.js"></script>
+    <script src="/static/admin/js/base.js"></script>
+</head>
+<body>
+<form action="{:url('admin/perm/save')}" method="post">
+    <input type="text" name="id" value="{$one_data.id|default=0}">
+    <p>显示的名字: <input type="text" name="cname" value="{$one_data.cname|default=''}"></p>
+    <p>路径名字: <input type="text" name="name" value="{$one_data.name|default=''}"></p>
+    <p>
+        <input type="radio" name="is_menu" value="1">是
+        <input type="radio" name="is_menu" value="2" checked="checked">否
+    </p>
+    <p class="mene_id">
+        所属菜单
+        <select name="menu_id">
+            <option value="">请选择所属菜单</option>
+            {foreach $all_sidebar as $sidebar}
+            <option value="{$sidebar.id}">{$sidebar.name}</option>
+            {/foreach}
+        </select>
+    </p>
+    <p><input type="submit" value="send"></p>
+</form>
+
+
+<script>
+    var $is_menu = $('[name="is_menu"]');
+    var $menu_id = $('[name="menu_id"]');
+    var $p_menu_id = $('.mene_id');
+
+    init();
+    function init() {
+        var is_menu = '{$one_data.is_menu}';
+        if(is_menu != ''){
+            $is_menu.each(function (index, ele) {
+                var $that = $(ele);
+                if($that.val() == is_menu){
+                    $that.prop('checked', true);
+                }
+            });
+        }
+
+        var menu_id = '{$one_data.menu_id}';
+        if(menu_id != ''){
+            $menu_id.val(menu_id);
+        }
+
+        if($('[name="is_menu"]:checked').val() == 2){
+            $p_menu_id.hide()
+        }
+    }
+
+    $is_menu.on('click', function () {
+        //如果 是 点击 show
+        var $that = $(this);
+        if($that.val() == 1){
+            $p_menu_id.show();
+        }
+    });
+    
+    console.log($is_menu);
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" href="/static/admin/css/common.css">
+    <script src="/static/admin/js/jquery-2.0.3.min.js"></script>
+
+    <script src="/static/admin/js/base.js"></script>
+</head>
+<body>
+<div class="container">
+    <form action="{:url('admin/group/save')}" method="post">
+        <p>
+            <input type="text" name="id" class="input_text" value="{$one_data.id|default=0}">
+        </p>
+        <p> 名称
+            <input type="text" name="name" class="input_text" value="{$one_data.name|default=''}"
+                   {if isset($one_data.name)&&$one_data.name=='g1'}disabled="disabled"{/if}>
+        </p>
+        <!--显示所有perm中的数据-->
+        <!--且按组显示-->
+        <div>
+            {foreach $all_perm as $perm_key=>$perm}
+            <div><span class="block">{$perm_key}</span>
+                {foreach $perm as $lperm}
+                <input type="checkbox" name="perm[]" value="{$lperm.id}">{$lperm.name}
+                {/foreach}
+            </div>
+            {/foreach}
+
+            {if empty($all_perm)}
+            <div>拥有所有权限</div>
+            {/if}
+        </div>
+        <input type="submit" class="input_submit_block" value="send">
+    </form>
+</div>
+
+
+<script>
+    var perm_ids_str = '{$one_data.perm_ids}';
+    if(perm_ids_str != ''){
+        var perm_ids_arr = JSON.parse(perm_ids_str);
+        $('[name="perm[]"]').each(function (index, ele) {
+            var that = $(ele);
+            if(inArray(perm_ids_arr, that.val())){
+                that.prop('checked', true);
+            }
+        });
+    }
+</script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
